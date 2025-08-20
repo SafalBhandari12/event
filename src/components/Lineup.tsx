@@ -15,7 +15,7 @@ interface Artist {
 
 const artists: Artist[] = [
   {
-    name: "DJ Zen",
+    name: "Kjnrwhite",
     genre: "Progressive House",
     time: "10:00 PM - 11:30 PM",
     bio: "Master of progressive soundscapes with over 15 years of experience in underground scenes.",
@@ -40,13 +40,6 @@ const artists: Artist[] = [
     genre: "Ambient Electronica",
     time: "7:00 PM - 8:30 PM",
     bio: "Experimental artist blending organic sounds with digital manipulation for unique experiences.",
-    image: "/assets/artist-placeholder.svg",
-  },
-  {
-    name: "Varyxx",
-    genre: "Bass & Future",
-    time: "1:00 AM - 2:30 AM",
-    bio: "Bass music innovator pushing boundaries with futuristic sounds and heavy drops.",
     image: "/assets/artist-placeholder.svg",
   },
 ];

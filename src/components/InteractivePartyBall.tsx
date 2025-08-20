@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 
 interface InteractivePartyBallProps {
   position?: "left" | "right";
@@ -13,6 +13,10 @@ const InteractivePartyBall = ({
   const [clickCount, setClickCount] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
   const ballRef = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll();
+
+  // Hide balls when scrolling past hero section
+  const ballOpacity = useTransform(scrollY, [0, 400], [1, 0]);
 
   // Mouse tracking for 3D tilt effect
   const mouseX = useMotionValue(0);
@@ -71,6 +75,7 @@ const InteractivePartyBall = ({
       }}
       whileTap={{ scale: 0.9 }}
       style={{
+        opacity: ballOpacity,
         perspective: "1000px",
       }}
     >

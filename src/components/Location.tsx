@@ -28,8 +28,7 @@ const Location = () => {
             Event <span className='neon-text'>Location</span>
           </h2>
           <p className='font-body text-lg md:text-xl text-white/80 max-w-2xl mx-auto'>
-            Join us at the stunning Riverside Amphitheater for an unforgettable
-            night under the stars
+            Join us at the iconic India Gate for an unforgettable night with Kjnrwhite under the stars
           </p>
         </motion.div>
 
@@ -43,7 +42,7 @@ const Location = () => {
           >
             <div className='glass rounded-2xl p-8'>
               <h3 className='font-heading font-bold text-2xl text-white mb-6'>
-                Riverside Amphitheater
+                India Gate, New Delhi
               </h3>
 
               <div className='space-y-4'>
@@ -64,11 +63,11 @@ const Location = () => {
                       Address
                     </h4>
                     <p className='text-white/70 font-body'>
-                      123 Riverside Drive
+                      Rajpath, India Gate
                       <br />
-                      Entertainment District
+                      New Delhi, Delhi 110001
                       <br />
-                      Mumbai, Maharashtra 400001
+                      India
                     </p>
                   </div>
                 </div>
@@ -94,7 +93,7 @@ const Location = () => {
                       <br />
                       Doors open: 6:00 PM
                       <br />
-                      Event ends: 3:00 AM
+                      Kjnrwhite Live: 8:00 PM
                     </p>
                   </div>
                 </div>
@@ -116,11 +115,11 @@ const Location = () => {
                       Capacity
                     </h4>
                     <p className='text-white/70 font-body'>
-                      5,000 attendees
+                      10,000 attendees
                       <br />
-                      Indoor/outdoor venue
+                      Open-air venue
                       <br />
-                      All weather covered
+                      Historic monument backdrop
                     </p>
                   </div>
                 </div>
@@ -165,7 +164,7 @@ const Location = () => {
                     </svg>
                   </div>
                   <span className='text-white/80 font-body text-sm'>
-                    Metro: Central Station
+                    Delhi Metro: Central Secretariat
                   </span>
                 </div>
                 <div className='flex items-center space-x-3'>
@@ -203,62 +202,25 @@ const Location = () => {
             </motion.div>
           </motion.div>
 
-          {/* Map Placeholder */}
+          {/* Embedded Map */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className='relative'
           >
-            <div className='glass rounded-2xl p-8 h-96 flex items-center justify-center relative overflow-hidden'>
-              {/* Placeholder Map */}
-              <div className='absolute inset-0 bg-gradient-to-br from-[var(--bg-mid)] to-[var(--bg-dark)] rounded-2xl' />
-              <div className='absolute inset-4 bg-white/5 rounded-xl border border-white/10' />
-
-              {/* Map Content Placeholder */}
-              <div className='relative z-10 text-center'>
-                <div className='w-16 h-16 bg-[var(--accent-pink)] rounded-full flex items-center justify-center mx-auto mb-4'>
-                  <svg width='32' height='32' viewBox='0 0 24 24' fill='white'>
-                    <path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z' />
-                    <circle cx='12' cy='10' r='3' />
-                  </svg>
-                </div>
-                <h4 className='font-heading font-bold text-xl text-white mb-2'>
-                  Interactive Map
-                </h4>
-                <p className='text-white/60 font-body text-sm mb-4'>
-                  Replace this placeholder with Google Maps or Mapbox embed
-                </p>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className='px-6 py-2 bg-gradient-to-r from-[var(--accent-pink)] to-[var(--accent-cyan)] text-black font-body font-semibold rounded-full text-sm'
-                >
-                  Get Directions
-                </motion.button>
-              </div>
-
-              {/* Grid pattern overlay */}
-              <div className='absolute inset-0 opacity-10'>
-                <div
-                  className='w-full h-full'
-                  style={{
-                    backgroundImage:
-                      "repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(255,255,255,0.1) 20px, rgba(255,255,255,0.1) 21px), repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(255,255,255,0.1) 20px, rgba(255,255,255,0.1) 21px)",
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Instructions */}
-            <div className='mt-6 glass rounded-lg p-4'>
-              <p className='text-white/60 font-body text-xs'>
-                <strong>Setup Instructions:</strong> Replace this placeholder
-                with:
-                <br />• Google Maps iframe: https://www.google.com/maps/embed
-                <br />• Mapbox GL JS component with API key
-                <br />• Custom map solution with venue location
-              </p>
+            <div className='glass rounded-2xl p-4 h-96 relative overflow-hidden'>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.9747329560467!2d77.22709831455062!3d28.612912982421052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd371b7e2b8b%3A0xb5e6e4d2e1c3b2a1!2sIndia%20Gate!5e0!3m2!1sen!2sin!4v1703097600000!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0, borderRadius: '12px' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="rounded-xl"
+                title="India Gate Location - Kjnrwhite Concert Venue"
+              />
             </div>
           </motion.div>
         </div>

@@ -24,13 +24,13 @@ const fredoka = Fredoka({
 });
 
 export const metadata: Metadata = {
-  title: "The Flow Party | Neon-filled Night of Beats & Art",
+  title: "IN or OUT | Neon-filled Night of Beats & Art",
   description:
     "Join us for an electrifying night of music, art, and waves at Riverside Amphitheater. August 30th - Experience the flow.",
   keywords:
-    "flow party, electronic music, riverside amphitheater, neon party, EDM event",
+    "IN or OUT, Kjnrwhite, electronic music, riverside amphitheater, neon party, EDM event",
   openGraph: {
-    title: "The Flow Party",
+    title: "IN or OUT",
     description: "A neon-filled night of beats, art, and waves",
     type: "website",
   },
