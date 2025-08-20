@@ -13,40 +13,40 @@ interface GalleryImage {
 
 const galleryImages: GalleryImage[] = [
   {
-    src: "/assets/gallery1.svg",
-    alt: "Flow Party 2023 - Main Stage",
-    photographer: "Alex Chen",
+    src: "/events/1.jpg",
+    alt: "IN or OUT Concert - Main Stage Performance",
+    photographer: "Event Photography",
     category: "Performances",
   },
   {
-    src: "/assets/gallery2.svg",
-    alt: "Crowd enjoying DJ Zen performance",
-    photographer: "Maria Santos",
+    src: "/events/2.webp",
+    alt: "Kjnrwhite Live Performance",
+    photographer: "Concert Visuals",
+    category: "Artists",
+  },
+  {
+    src: "/events/3.jpg",
+    alt: "Crowd Energy and Atmosphere",
+    photographer: "Event Moments",
     category: "Crowd",
   },
   {
-    src: "/assets/gallery3.svg",
-    alt: "Neon light installation",
-    photographer: "David Kim",
+    src: "/events/4.jpg",
+    alt: "Stage Lighting and Visual Effects",
+    photographer: "Stage Design",
     category: "Visuals",
   },
   {
-    src: "/assets/gallery4.svg",
-    alt: "VIP area atmosphere",
-    photographer: "Sarah Johnson",
-    category: "VIP",
+    src: "/events/5.jpg",
+    alt: "Concert Venue and Setup",
+    photographer: "Venue Photography",
+    category: "Venue",
   },
   {
-    src: "/assets/gallery5.svg",
-    alt: "Luna Verde live performance",
-    photographer: "Mike Wilson",
+    src: "/events/6.jpg",
+    alt: "Artist Performance Highlights",
+    photographer: "Live Shots",
     category: "Performances",
-  },
-  {
-    src: "/assets/gallery6.svg",
-    alt: "After party vibes",
-    photographer: "Emma Davis",
-    category: "After Party",
   },
 ];
 
@@ -350,35 +350,6 @@ const Gallery = () => {
               />
             ))}
           </AnimatePresence>
-        </motion.div>
-
-        {/* Stats section */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className='mt-20 grid grid-cols-2 md:grid-cols-4 gap-8'
-        >
-          {[
-            { number: "2023", label: "Events Hosted" },
-            { number: "50K+", label: "Attendees" },
-            { number: "100+", label: "Artists" },
-            { number: "48", label: "Hours of Music" },
-          ].map((stat, index) => (
-            <div key={index} className='text-center'>
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={isInView ? { scale: 1 } : { scale: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                className='font-heading font-bold text-3xl md:text-4xl text-white mb-2'
-              >
-                {stat.number}
-              </motion.div>
-              <div className='font-body text-white/60 text-sm uppercase tracking-wide'>
-                {stat.label}
-              </div>
-            </div>
-          ))}
         </motion.div>
       </div>
 

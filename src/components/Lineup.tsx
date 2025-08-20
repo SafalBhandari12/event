@@ -50,7 +50,7 @@ const ArtistCard = ({ artist, index }: { artist: Artist; index: number }) => {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   const handlePlaySample = () => {
-    // Placeholder for audio sample functionality
+    // Placeholder for play functionality
     console.log(`Playing sample for ${artist.name}`);
   };
 
@@ -59,8 +59,8 @@ const ArtistCard = ({ artist, index }: { artist: Artist; index: number }) => {
       ref={ref}
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className='relative group'
+      transition={{ duration: 0.8, delay: index * 0.2 }}
+      className='group cursor-pointer'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -130,14 +130,14 @@ const ArtistCard = ({ artist, index }: { artist: Artist; index: number }) => {
           </motion.div>
         </div>
 
-        <div className='p-6'>
-          <h3 className='font-heading font-bold text-2xl text-white mb-2'>
+        <div className='p-4 sm:p-6'>
+          <h3 className='font-heading font-bold text-xl sm:text-2xl text-white mb-2'>
             {artist.name}
           </h3>
-          <p className='text-[var(--accent-cyan)] font-body font-semibold mb-2'>
+          <p className='text-[var(--accent-cyan)] font-body font-semibold mb-2 text-sm sm:text-base'>
             {artist.genre}
           </p>
-          <p className='text-[var(--muted)] font-body text-sm mb-4'>
+          <p className='text-[var(--muted)] font-body text-xs sm:text-sm mb-4'>
             {artist.time}
           </p>
         </div>
@@ -153,41 +153,41 @@ const Lineup = () => {
   return (
     <section
       id='lineup'
-      className='py-20 px-6 bg-[var(--bg-dark)] relative overflow-hidden'
+      className='py-16 sm:py-20 px-4 sm:px-6 bg-[var(--bg-dark)] relative overflow-hidden'
     >
       {/* Background Elements */}
-      <div className='absolute top-20 left-0 w-72 h-72 bg-[var(--accent-yellow)]/10 rounded-full blur-3xl' />
-      <div className='absolute bottom-20 right-0 w-96 h-96 bg-[var(--accent-pink)]/10 rounded-full blur-3xl' />
+      <div className='absolute top-0 left-10 w-72 h-72 bg-[var(--accent-pink)]/5 rounded-full blur-3xl' />
+      <div className='absolute bottom-0 right-10 w-80 h-80 bg-[var(--accent-cyan)]/5 rounded-full blur-3xl' />
 
       <div className='container mx-auto max-w-7xl relative z-10' ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8 }}
-          className='text-center mb-16'
+          className='text-center mb-12 sm:mb-16'
         >
-          <h2 className='font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-6 text-white'>
+          <h2 className='font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-6 text-white'>
             Artist <span className='neon-text'>Lineup</span>
           </h2>
-          <p className='font-body text-lg md:text-xl text-white/80 max-w-2xl mx-auto'>
-            Experience world-class artists bringing their unique sounds to
-            create an unforgettable musical journey
+          <p className='font-body text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto'>
+            Experience world-class artists bringing their unique sounds to life
+            with Kjnrwhite
           </p>
         </motion.div>
 
-        {/* Mobile: Horizontal Scroll */}
-        <div className='md:hidden'>
-          <div className='flex space-x-6 overflow-x-auto pb-6 scrollbar-hide'>
+        {/* Mobile & Tablet: Horizontal scroll */}
+        <div className='block lg:hidden'>
+          <div className='flex space-x-4 sm:space-x-6 overflow-x-auto pb-6 scrollbar-hide'>
             {artists.map((artist, index) => (
-              <div key={artist.name} className='flex-none w-80'>
+              <div key={artist.name} className='flex-none w-72 sm:w-80'>
                 <ArtistCard artist={artist} index={index} />
               </div>
             ))}
           </div>
         </div>
 
-        {/* Desktop: Grid */}
-        <div className='hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
+        {/* Desktop: Single row with 4 columns */}
+        <div className='hidden lg:grid lg:grid-cols-4 gap-6 xl:gap-8'>
           {artists.map((artist, index) => (
             <ArtistCard key={artist.name} artist={artist} index={index} />
           ))}
