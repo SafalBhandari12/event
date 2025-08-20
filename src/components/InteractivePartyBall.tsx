@@ -29,47 +29,67 @@ const InteractivePartyBall = () => {
   }, []);
 
   const playBeats = async () => {
-    if (!audioContext) {
-      const AudioContextClass =
-        window.AudioContext ||
-        (
-          window as Window &
-            typeof globalThis & { webkitAudioContext: typeof AudioContext }
-        ).webkitAudioContext;
-      const ctx = new AudioContextClass();
-      setAudioContext(ctx);
+    try {
+      if (!audioContext) {
+        const AudioContextClass =
+          window.AudioContext ||
+          (
+            window as Window &
+              typeof globalThis & { webkitAudioContext: typeof AudioContext }
+          ).webkitAudioContext;
+        const ctx = new AudioContextClass();
+        
+        // Resume context if it's suspended (Chrome auto-play policy)
+        if (ctx.state === 'suspended') {
+          await ctx.resume();
+        }
+        
+        setAudioContext(ctx);
 
-      // Create a simple beat pattern
-      const beats = [220, 330, 440, 550]; // frequencies
-      let beatIndex = 0;
+        // Create a more interesting beat pattern
+        const beats = [
+          { freq: 220, duration: 0.15 },
+          { freq: 330, duration: 0.1 },
+          { freq: 440, duration: 0.15 },
+          { freq: 550, duration: 0.1 },
+          { freq: 660, duration: 0.2 }
+        ];
+        let beatIndex = 0;
 
-      const playBeat = () => {
-        const oscillator = ctx.createOscillator();
-        const gainNode = ctx.createGain();
+        const playBeat = () => {
+          const oscillator = ctx.createOscillator();
+          const gainNode = ctx.createGain();
 
-        oscillator.connect(gainNode);
-        gainNode.connect(ctx.destination);
+          oscillator.connect(gainNode);
+          gainNode.connect(ctx.destination);
 
-        oscillator.frequency.setValueAtTime(beats[beatIndex], ctx.currentTime);
-        oscillator.type = "sine";
+          const beat = beats[beatIndex];
+          oscillator.frequency.setValueAtTime(beat.freq, ctx.currentTime);
+          oscillator.type = "sine";
 
-        gainNode.gain.setValueAtTime(0.1, ctx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+          gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + beat.duration);
 
-        oscillator.start(ctx.currentTime);
-        oscillator.stop(ctx.currentTime + 0.1);
+          oscillator.start(ctx.currentTime);
+          oscillator.stop(ctx.currentTime + beat.duration);
 
-        beatIndex = (beatIndex + 1) % beats.length;
-      };
+          beatIndex = (beatIndex + 1) % beats.length;
+        };
 
-      if (!isPlaying) {
-        setIsPlaying(true);
-        const interval = setInterval(playBeat, 200);
-        setTimeout(() => {
-          clearInterval(interval);
-          setIsPlaying(false);
-        }, 2000);
+        if (!isPlaying) {
+          setIsPlaying(true);
+          const interval = setInterval(playBeat, 250);
+          setTimeout(() => {
+            clearInterval(interval);
+            setIsPlaying(false);
+          }, 3000);
+        }
       }
+    } catch (error) {
+      console.log('Audio playback not supported or blocked');
+      // Visual feedback even if audio fails
+      setIsPlaying(true);
+      setTimeout(() => setIsPlaying(false), 3000);
     }
   };
 
@@ -77,17 +97,23 @@ const InteractivePartyBall = () => {
     <motion.div
       initial={{ opacity: 0, scale: 0.5, y: -100 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 1.5, delay: 1, type: "spring", bounce: 0.4 }}
-      className='fixed top-32 right-32 z-40 cursor-pointer'
+      transition={{ duration: 1.5, delay: 2, type: "spring", bounce: 0.4 }}
+      className='fixed top-4 right-4 z-[9999] cursor-pointer'
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={playBeats}
     >
       <div
         ref={ballRef}
-        className='relative w-24 h-24 transition-transform duration-200 ease-out'
+        className='relative w-24 h-24 md:w-32 md:h-32 transition-transform duration-200 ease-out'
         style={{ transformStyle: "preserve-3d" }}
       >
+        {/* Bright visibility background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full blur-sm opacity-80 scale-110" />
+        
+        {/* Pulsing ring for extra visibility */}
+        <div className="absolute inset-0 rounded-full border-4 border-white/60 animate-ping" />
+        
         {/* Main disco ball */}
         <motion.div
           animate={{
@@ -102,16 +128,16 @@ const InteractivePartyBall = () => {
             },
             scale: { duration: 0.3 },
           }}
-          className='absolute inset-0 rounded-full bg-gradient-to-br from-[var(--accent-pink)] via-[var(--accent-cyan)] to-[var(--accent-yellow)] shadow-2xl'
+          className='absolute inset-0 rounded-full shadow-2xl'
           style={{
             background: `conic-gradient(from 0deg, 
               var(--accent-pink), 
               var(--accent-cyan), 
               var(--accent-yellow), 
               var(--accent-pink))`,
-            boxShadow: `0 0 30px var(--accent-pink), 
-                       0 0 60px var(--accent-cyan), 
-                       0 0 90px var(--accent-yellow)`,
+            boxShadow: `0 0 20px var(--accent-pink)80, 
+                       0 0 40px var(--accent-cyan)60, 
+                       0 0 60px var(--accent-yellow)40`,
           }}
         >
           {/* Disco ball reflections */}
@@ -150,8 +176,8 @@ const InteractivePartyBall = () => {
           className='absolute -inset-4 rounded-full blur-xl'
           style={{
             background: `radial-gradient(circle, 
-              var(--accent-pink)20, 
-              var(--accent-cyan)10, 
+              var(--accent-pink)40, 
+              var(--accent-cyan)20, 
               transparent)`,
           }}
         />
@@ -174,7 +200,7 @@ const InteractivePartyBall = () => {
                   delay: i * 0.2,
                   repeat: 1,
                 }}
-                className='absolute text-white text-xl'
+                className='absolute text-white text-xl font-bold drop-shadow-lg'
                 style={{
                   top: "50%",
                   left: "50%",
@@ -220,10 +246,26 @@ const InteractivePartyBall = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
-          className='absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-white text-xs font-bold bg-black/50 px-2 py-1 rounded whitespace-nowrap'
+          className='absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-white text-xs font-bold bg-black/70 px-3 py-1 rounded-full whitespace-nowrap border border-white/20 backdrop-blur-sm'
         >
-          Click for beats! 🎵
+          🎵 Click for beats!
         </motion.div>
+
+        {/* Pulse indicator when playing */}
+        {isPlaying && (
+          <motion.div
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [1, 0.5, 1],
+            }}
+            transition={{
+              duration: 0.4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className='absolute inset-0 rounded-full border-2 border-white/50'
+          />
+        )}
       </div>
     </motion.div>
   );

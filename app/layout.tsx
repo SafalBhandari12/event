@@ -1,25 +1,25 @@
 import type { Metadata } from "next";
-import { Orbitron, Space_Grotesk, Exo_2 } from "next/font/google";
+import { Righteous, Poppins, Fredoka } from "next/font/google";
 import "./globals.css";
 
-const orbitron = Orbitron({
+const righteous = Righteous({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "700", "900"],
+  weight: ["400"],
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const poppins = Poppins({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 
-const exo2 = Exo_2({
+const fredoka = Fredoka({
   variable: "--font-accent",
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -53,7 +53,7 @@ export default function RootLayout({
         <link rel='preload' href='/assets/poster.svg' as='image' />
       </head>
       <body
-        className={`${orbitron.variable} ${spaceGrotesk.variable} ${exo2.variable} antialiased`}
+        className={`${righteous.variable} ${poppins.variable} ${fredoka.variable} antialiased`}
       >
         {children}
       </body>
