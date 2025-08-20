@@ -13,7 +13,7 @@ const Footer = () => {
     e.preventDefault();
     // Mock newsletter signup
     alert(
-      `Thank you for subscribing with ${email}! We'll keep you updated on future Flow Party events.`
+      `Thank you for subscribing with ${email}! We'll keep you updated on future In Or Out events.`
     );
     setEmail("");
   };
@@ -67,12 +67,12 @@ const Footer = () => {
                 <span className='text-black font-bold text-lg'>F</span>
               </div>
               <span className='font-heading font-bold text-2xl text-white'>
-                Flow Party
+                In or Out
               </span>
             </div>
             <p className='text-white/70 font-body leading-relaxed mb-6'>
               Creating unforgettable experiences where music, art, and community
-              come together in perfect harmony. Join the flow.
+              come together in perfect harmony. Join the In Or Out .
             </p>
 
             {/* Social Links */}
@@ -222,7 +222,7 @@ const Footer = () => {
           className='border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0'
         >
           <p className='text-white/60 font-body text-sm'>
-            © 2024 Flow Party. All rights reserved. Made with ❤️ for the music
+            © 2024 In or Out. All rights reserved. Made with ❤️ for the music
             community.
           </p>
         </motion.div>
