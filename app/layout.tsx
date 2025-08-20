@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
-import { Poppins, Inter } from "next/font/google";
+import { Orbitron, Space_Grotesk, Exo_2 } from "next/font/google";
 import "./globals.css";
 
-const poppins = Poppins({
+const orbitron = Orbitron({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
+  weight: ["400", "700", "900"],
   display: "swap",
 });
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-body",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
+const exo2 = Exo_2({
+  variable: "--font-accent",
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700", "800"],
   display: "swap",
 });
 
@@ -45,7 +52,9 @@ export default function RootLayout({
         />
         <link rel='preload' href='/assets/poster.svg' as='image' />
       </head>
-      <body className={`${poppins.variable} ${inter.variable} antialiased`}>
+      <body
+        className={`${orbitron.variable} ${spaceGrotesk.variable} ${exo2.variable} antialiased`}
+      >
         {children}
       </body>
     </html>

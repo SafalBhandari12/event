@@ -8,6 +8,11 @@
   --accent-yellow: #ffd86a;
   --muted: #9aa0a6;
   --glass: rgba(255, 255, 255, 0.06);
+
+  /* Premium font families - now using Next.js font variables */
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --font-accent: var(--font-accent);
 }
 
 * {
@@ -21,9 +26,33 @@ html {
 body {
   background: var(--bg-dark);
   color: white;
-  font-family: "Inter", system-ui, sans-serif;
+  font-family: var(--font-body);
   line-height: 1.6;
   overflow-x: hidden;
+}
+
+/* Typography improvements */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-accent {
+  font-family: var(--font-accent);
 }
 
 /* Custom animations */

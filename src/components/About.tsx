@@ -35,10 +35,10 @@ const About = () => {
             className='font-body text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl mx-auto'
           >
             Immerse yourself in a world where cutting-edge electronic music
-            meets stunning visual artistry. The Flow Party isn't just an
-            event—it's a transcendent journey through sound, light, and human
-            connection. Join us for an unforgettable night where the boundaries
-            between reality and dreams blur into pure magic.
+            meets stunning visual artistry. The Flow Party isn&apos;t just an
+            event—it&apos;s a transcendent journey through sound, light, and
+            human connection. Join us for an unforgettable night where the
+            boundaries between reality and dreams blur into pure magic.
           </motion.p>
 
           <motion.div

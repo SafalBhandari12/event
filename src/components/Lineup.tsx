@@ -71,10 +71,7 @@ const ArtistCard = ({ artist, index }: { artist: Artist; index: number }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <motion.div
-        whileHover={{ scale: 1.02, y: -5 }}
-        className='glass rounded-2xl overflow-hidden shadow-2xl'
-      >
+      <div className='glass rounded-2xl overflow-hidden shadow-2xl relative'>
         <div className='relative h-64 overflow-hidden'>
           <Image
             src={artist.image}
@@ -84,19 +81,56 @@ const ArtistCard = ({ artist, index }: { artist: Artist; index: number }) => {
           />
           <div className='absolute inset-0 bg-gradient-to-t from-black/80 to-transparent' />
 
-          {/* Hover Overlay */}
+          {/* Text Overlay on Hover */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: isHovered ? 1 : 0 }}
-            className='absolute inset-0 bg-[var(--accent-pink)]/20 backdrop-blur-sm flex items-center justify-center'
+            transition={{ duration: 0.3 }}
+            className='absolute inset-0 bg-black/60 backdrop-blur-sm flex flex-col items-center justify-center text-center p-6'
           >
+            <motion.h3
+              initial={{ y: 20 }}
+              animate={{ y: isHovered ? 0 : 20 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              className='font-heading font-bold text-3xl text-white mb-2'
+            >
+              {artist.name}
+            </motion.h3>
+            <motion.p
+              initial={{ y: 20 }}
+              animate={{ y: isHovered ? 0 : 20 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+              className='text-[var(--accent-cyan)] font-body font-semibold mb-2 text-lg'
+            >
+              {artist.genre}
+            </motion.p>
+            <motion.p
+              initial={{ y: 20 }}
+              animate={{ y: isHovered ? 0 : 20 }}
+              transition={{ duration: 0.3, delay: 0.3 }}
+              className='text-[var(--muted)] font-body text-sm mb-4'
+            >
+              {artist.time}
+            </motion.p>
+            <motion.p
+              initial={{ y: 20 }}
+              animate={{ y: isHovered ? 0 : 20 }}
+              transition={{ duration: 0.3, delay: 0.4 }}
+              className='text-white/80 font-body text-sm leading-relaxed'
+            >
+              {artist.bio}
+            </motion.p>
+
             <motion.button
               onClick={handlePlaySample}
+              initial={{ scale: 0 }}
+              animate={{ scale: isHovered ? 1 : 0 }}
+              transition={{ duration: 0.3, delay: 0.5 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className='w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30'
+              className='mt-4 w-12 h-12 bg-[var(--accent-pink)]/80 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30'
             >
-              <svg width='24' height='24' viewBox='0 0 24 24' fill='white'>
+              <svg width='20' height='20' viewBox='0 0 24 24' fill='white'>
                 <path d='M8 5v14l11-7z' />
               </svg>
             </motion.button>
@@ -113,21 +147,8 @@ const ArtistCard = ({ artist, index }: { artist: Artist; index: number }) => {
           <p className='text-[var(--muted)] font-body text-sm mb-4'>
             {artist.time}
           </p>
-
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{
-              height: isHovered ? "auto" : 0,
-              opacity: isHovered ? 1 : 0,
-            }}
-            className='overflow-hidden'
-          >
-            <p className='text-white/70 font-body text-sm leading-relaxed'>
-              {artist.bio}
-            </p>
-          </motion.div>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 };

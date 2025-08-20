@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import Image from "next/image";
 
 interface Sponsor {
   name: string;
@@ -96,7 +95,7 @@ const Sponsors = () => {
             Our <span className='neon-text'>Sponsors</span>
           </h2>
           <p className='font-body text-lg md:text-xl text-white/80 max-w-2xl mx-auto'>
-            We're grateful to our amazing sponsors who make The Flow Party
+            We&apos;re grateful to our amazing sponsors who make The Flow Party
             possible
           </p>
         </motion.div>

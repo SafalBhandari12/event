@@ -17,8 +17,9 @@ module.exports = {
         glass: "var(--glass)",
       },
       fontFamily: {
-        heading: ["Poppins", "sans-serif"],
-        body: ["Inter", "sans-serif"],
+        heading: ["var(--font-heading)", "Arial Black", "sans-serif"],
+        body: ["var(--font-body)", "Inter", "system-ui", "sans-serif"],
+        accent: ["var(--font-accent)", "Roboto", "sans-serif"],
       },
       backgroundImage: {
         "neon-gradient":
