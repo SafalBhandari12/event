@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import InteractivePartyBall from "./InteractivePartyBall";
 
 const Hero = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const { scrollY } = useScroll();
 
@@ -25,24 +24,8 @@ const Hero = () => {
       className='relative h-screen flex items-center justify-center overflow-hidden'
     >
       {/* Interactive Party Ball Components */}
-      <InteractivePartyBall position="left" />
-      <InteractivePartyBall position="right" />
-
-      {/* Video Background */}
-      {!prefersReducedMotion && (
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className='absolute inset-0 w-full h-full object-cover z-0'
-          poster='/assets/poster.svg'
-        >
-          <source src='/assets/hero.webm' type='video/webm' />
-          <source src='/assets/hero.mp4' type='video/mp4' />
-        </video>
-      )}
+      <InteractivePartyBall position='left' />
+      <InteractivePartyBall position='right' />
 
       {/* Fallback Gradient Background */}
       <div className='absolute inset-0 bg-gradient-to-br from-[var(--bg-dark)] via-[var(--bg-mid)] to-black z-0' />
@@ -84,8 +67,8 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.5 }}
           className='font-heading font-black text-6xl md:text-8xl lg:text-9xl mb-6 leading-none'
         >
-          <span className='block text-white'>THE</span>
-          <span className='block neon-text tracking-wider'>FLOW PARTY</span>
+          <span className='block text-white'>IN or OUT</span>
+          <span className='block neon-text tracking-wider'>Concert</span>
         </motion.h1>
 
         <motion.p

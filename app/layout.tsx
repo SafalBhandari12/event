@@ -44,12 +44,6 @@ export default function RootLayout({
   return (
     <html lang='en' className='scroll-smooth'>
       <head>
-        <link
-          rel='preload'
-          href='/assets/hero.webm'
-          as='video'
-          type='video/webm'
-        />
         <link rel='preload' href='/assets/poster.svg' as='image' />
       </head>
       <body
