@@ -1,38 +1,40 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        'bg-dark': 'var(--bg-dark)',
-        'bg-mid': 'var(--bg-mid)',
-        'accent-pink': 'var(--accent-pink)',
-        'accent-cyan': 'var(--accent-cyan)',
-        'accent-yellow': 'var(--accent-yellow)',
-        'muted': 'var(--muted)',
-        'glass': 'var(--glass)',
+        "bg-dark": "var(--bg-dark)",
+        "bg-mid": "var(--bg-mid)",
+        "accent-pink": "var(--accent-pink)",
+        "accent-cyan": "var(--accent-cyan)",
+        "accent-yellow": "var(--accent-yellow)",
+        muted: "var(--muted)",
+        glass: "var(--glass)",
       },
       fontFamily: {
-        'heading': ['Poppins', 'sans-serif'],
-        'body': ['Inter', 'sans-serif'],
+        heading: ["Poppins", "sans-serif"],
+        body: ["Inter", "sans-serif"],
       },
       backgroundImage: {
-        'neon-gradient': 'linear-gradient(135deg, var(--accent-pink), var(--accent-cyan))',
-        'button-gradient': 'linear-gradient(135deg, var(--accent-pink), var(--accent-yellow))',
+        "neon-gradient":
+          "linear-gradient(135deg, var(--accent-pink), var(--accent-cyan))",
+        "button-gradient":
+          "linear-gradient(135deg, var(--accent-pink), var(--accent-yellow))",
       },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
+        float: "float 6s ease-in-out infinite",
+        "pulse-soft": "pulse-soft 3s ease-in-out infinite",
+        glow: "glow 2s ease-in-out infinite alternate",
       },
       backdropBlur: {
-        'xs': '2px',
+        xs: "2px",
       },
     },
   },
   plugins: [],
-}
+};

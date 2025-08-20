@@ -18,8 +18,10 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "The Flow Party | Neon-filled Night of Beats & Art",
-  description: "Join us for an electrifying night of music, art, and waves at Riverside Amphitheater. August 30th - Experience the flow.",
-  keywords: "flow party, electronic music, riverside amphitheater, neon party, EDM event",
+  description:
+    "Join us for an electrifying night of music, art, and waves at Riverside Amphitheater. August 30th - Experience the flow.",
+  keywords:
+    "flow party, electronic music, riverside amphitheater, neon party, EDM event",
   openGraph: {
     title: "The Flow Party",
     description: "A neon-filled night of beats, art, and waves",
@@ -33,10 +35,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang='en' className='scroll-smooth'>
       <head>
-        <link rel="preload" href="/assets/hero.webm" as="video" type="video/webm" />
-        <link rel="preload" href="/assets/poster.svg" as="image" />
+        <link
+          rel='preload'
+          href='/assets/hero.webm'
+          as='video'
+          type='video/webm'
+        />
+        <link rel='preload' href='/assets/poster.svg' as='image' />
       </head>
       <body className={`${poppins.variable} ${inter.variable} antialiased`}>
         {children}
