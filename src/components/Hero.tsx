@@ -2,31 +2,32 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import InteractivePartyBall from "./InteractivePartyBall";
 
 const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const { scrollY } = useScroll();
 
   const y1 = useTransform(scrollY, [0, 500], [0, 150]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  // Fixed: Keep text visible during scroll - no fading
+  const opacity = useTransform(scrollY, [0, 1000], [1, 1]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     setPrefersReducedMotion(mediaQuery.matches);
   }, []);
 
-  const handleVideoLoad = () => {
-    setIsVideoLoaded(true);
-  };
-
   return (
     <section
       id='hero'
       className='relative h-screen flex items-center justify-center overflow-hidden'
     >
+      {/* Interactive Party Ball Components */}
+      <InteractivePartyBall position="left" />
+      <InteractivePartyBall position="right" />
+
       {/* Video Background */}
       {!prefersReducedMotion && (
         <video
@@ -35,7 +36,6 @@ const Hero = () => {
           muted
           loop
           playsInline
-          onLoadedData={handleVideoLoad}
           className='absolute inset-0 w-full h-full object-cover z-0'
           poster='/assets/poster.svg'
         >

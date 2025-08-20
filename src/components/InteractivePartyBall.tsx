@@ -1,272 +1,288 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
-const InteractivePartyBall = () => {
+interface InteractivePartyBallProps {
+  position?: "left" | "right";
+}
+
+const InteractivePartyBall = ({
+  position = "right",
+}: InteractivePartyBallProps) => {
+  const [clickCount, setClickCount] = useState(0);
+  const [isClicked, setIsClicked] = useState(false);
   const ballRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (ballRef.current) {
-        const ball = ballRef.current;
-        const rect = ball.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
+  // Mouse tracking for 3D tilt effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 150, damping: 25 });
+  const springY = useSpring(mouseY, { stiffness: 150, damping: 25 });
 
-        const deltaX = (e.clientX - centerX) / 10;
-        const deltaY = (e.clientY - centerY) / 10;
+  // Transform values for 3D rotation
+  const rotateX = useTransform(springY, [-100, 100], [10, -10]);
+  const rotateY = useTransform(springX, [-100, 100], [-10, 10]);
 
-        ball.style.transform = `translate(${deltaX}px, ${deltaY}px) rotateX(${deltaY}deg) rotateY(${deltaX}deg)`;
-      }
-    };
+  // Handle mouse movement for 3D tilt effect
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!ballRef.current) return;
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+    const rect = ballRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
 
-  const playBeats = async () => {
-    try {
-      if (!audioContext) {
-        const AudioContextClass =
-          window.AudioContext ||
-          (
-            window as Window &
-              typeof globalThis & { webkitAudioContext: typeof AudioContext }
-          ).webkitAudioContext;
-        const ctx = new AudioContextClass();
-        
-        // Resume context if it's suspended (Chrome auto-play policy)
-        if (ctx.state === 'suspended') {
-          await ctx.resume();
-        }
-        
-        setAudioContext(ctx);
+    const deltaX = e.clientX - centerX;
+    const deltaY = e.clientY - centerY;
 
-        // Create a more interesting beat pattern
-        const beats = [
-          { freq: 220, duration: 0.15 },
-          { freq: 330, duration: 0.1 },
-          { freq: 440, duration: 0.15 },
-          { freq: 550, duration: 0.1 },
-          { freq: 660, duration: 0.2 }
-        ];
-        let beatIndex = 0;
+    mouseX.set(deltaX * 0.3);
+    mouseY.set(deltaY * 0.3);
+  };
 
-        const playBeat = () => {
-          const oscillator = ctx.createOscillator();
-          const gainNode = ctx.createGain();
+  // Handle interaction
+  const handleInteraction = () => {
+    setIsClicked(true);
+    setClickCount((prev) => prev + 1);
 
-          oscillator.connect(gainNode);
-          gainNode.connect(ctx.destination);
-
-          const beat = beats[beatIndex];
-          oscillator.frequency.setValueAtTime(beat.freq, ctx.currentTime);
-          oscillator.type = "sine";
-
-          gainNode.gain.setValueAtTime(0.15, ctx.currentTime);
-          gainNode.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + beat.duration);
-
-          oscillator.start(ctx.currentTime);
-          oscillator.stop(ctx.currentTime + beat.duration);
-
-          beatIndex = (beatIndex + 1) % beats.length;
-        };
-
-        if (!isPlaying) {
-          setIsPlaying(true);
-          const interval = setInterval(playBeat, 250);
-          setTimeout(() => {
-            clearInterval(interval);
-            setIsPlaying(false);
-          }, 3000);
-        }
-      }
-    } catch (error) {
-      console.log('Audio playback not supported or blocked');
-      // Visual feedback even if audio fails
-      setIsPlaying(true);
-      setTimeout(() => setIsPlaying(false), 3000);
-    }
+    // Reset click effect after animation
+    setTimeout(() => {
+      setIsClicked(false);
+    }, 1500);
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.5, y: -100 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 1.5, delay: 2, type: "spring", bounce: 0.4 }}
-      className='fixed top-4 right-4 z-[9999] cursor-pointer'
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={playBeats}
+      ref={ballRef}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 0.9, scale: 1 }}
+      transition={{ duration: 2, type: "spring", bounce: 0.4 }}
+      className={`fixed top-20 ${
+        position === "left" ? "left-20" : "right-20"
+      } w-20 h-20 z-30 cursor-pointer select-none`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => {
+        mouseX.set(0);
+        mouseY.set(0);
+      }}
+      onClick={handleInteraction}
+      whileHover={{
+        scale: 1.2,
+        transition: { duration: 0.3 },
+      }}
+      whileTap={{ scale: 0.9 }}
+      style={{
+        perspective: "1000px",
+      }}
     >
-      <div
-        ref={ballRef}
-        className='relative w-24 h-24 md:w-32 md:h-32 transition-transform duration-200 ease-out'
-        style={{ transformStyle: "preserve-3d" }}
+      {/* Main Party Ball - Always Active */}
+      <motion.div
+        className='relative w-full h-full rounded-full overflow-hidden'
+        style={{
+          rotateX,
+          rotateY,
+          transformStyle: "preserve-3d",
+          background:
+            "conic-gradient(from 0deg, #ff3b8a, #6af1ff, #ffd86a, #ff3b8a)",
+        }}
+        animate={{
+          rotate: 360,
+        }}
+        transition={{
+          rotate: {
+            duration: 3,
+            repeat: Infinity,
+            ease: "linear",
+          },
+        }}
       >
-        {/* Bright visibility background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full blur-sm opacity-80 scale-110" />
-        
-        {/* Pulsing ring for extra visibility */}
-        <div className="absolute inset-0 rounded-full border-4 border-white/60 animate-ping" />
-        
-        {/* Main disco ball */}
+        {/* Morphing Shape Overlay */}
         <motion.div
+          className='absolute inset-0 rounded-full'
           animate={{
-            rotate: isHovered ? 360 : 0,
-            scale: isHovered ? 1.2 : 1,
-          }}
-          transition={{
-            rotate: {
-              duration: 2,
-              repeat: isHovered ? Infinity : 0,
-              ease: "linear",
-            },
-            scale: { duration: 0.3 },
-          }}
-          className='absolute inset-0 rounded-full shadow-2xl'
-          style={{
-            background: `conic-gradient(from 0deg, 
-              var(--accent-pink), 
-              var(--accent-cyan), 
-              var(--accent-yellow), 
-              var(--accent-pink))`,
-            boxShadow: `0 0 20px var(--accent-pink)80, 
-                       0 0 40px var(--accent-cyan)60, 
-                       0 0 60px var(--accent-yellow)40`,
-          }}
-        >
-          {/* Disco ball reflections */}
-          {[...Array(12)].map((_, i) => (
-            <motion.div
-              key={i}
-              className='absolute w-2 h-2 bg-white rounded-full opacity-80'
-              style={{
-                top: `${20 + Math.sin((i * 30 * Math.PI) / 180) * 30}%`,
-                left: `${20 + Math.cos((i * 30 * Math.PI) / 180) * 30}%`,
-              }}
-              animate={{
-                scale: isHovered ? [1, 1.5, 1] : 1,
-                opacity: isHovered ? [0.8, 1, 0.8] : 0.8,
-              }}
-              transition={{
-                duration: 0.5,
-                delay: i * 0.05,
-                repeat: isHovered ? Infinity : 0,
-              }}
-            />
-          ))}
-        </motion.div>
-
-        {/* Pulsing glow effect */}
-        <motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            opacity: [0.3, 0.6, 0.3],
+            borderRadius: ["50%", "30% 70% 70% 30% / 30% 30% 70% 70%", "50%"],
+            scale: [1, 1.1, 1],
           }}
           transition={{
             duration: 2,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className='absolute -inset-4 rounded-full blur-xl'
           style={{
-            background: `radial-gradient(circle, 
-              var(--accent-pink)40, 
-              var(--accent-cyan)20, 
-              transparent)`,
+            background:
+              "conic-gradient(from 0deg, #ff3b8a99, #6af1ff99, #ffd86a99, #ff3b8a99)",
+            filter: "blur(1px)",
           }}
         />
 
-        {/* Musical notes when playing */}
-        {isPlaying && (
-          <div className='absolute -inset-8'>
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0, y: 0 }}
-                animate={{
-                  opacity: [0, 1, 0],
-                  scale: [0, 1, 0],
-                  y: [-20, -40, -60],
-                  x: [0, Math.random() * 40 - 20, Math.random() * 80 - 40],
-                }}
-                transition={{
-                  duration: 1.5,
-                  delay: i * 0.2,
-                  repeat: 1,
-                }}
-                className='absolute text-white text-xl font-bold drop-shadow-lg'
-                style={{
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                }}
-              >
-                ♪
-              </motion.div>
-            ))}
-          </div>
-        )}
-
-        {/* Light beams */}
-        {isHovered && (
-          <div className='absolute inset-0'>
-            {[...Array(8)].map((_, i) => (
-              <motion.div
-                key={i}
-                className='absolute w-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-60'
-                style={{
-                  height: "120px",
-                  top: "-48px",
-                  left: "50%",
-                  transformOrigin: "bottom center",
-                  transform: `translateX(-50%) rotate(${i * 45}deg)`,
-                }}
-                animate={{
-                  scaleY: [0, 1, 0],
-                  opacity: [0, 0.8, 0],
-                }}
-                transition={{
-                  duration: 0.8,
-                  delay: i * 0.1,
-                  repeat: Infinity,
-                  repeatDelay: 0.5,
-                }}
-              />
-            ))}
-          </div>
-        )}
-
-        {/* Click hint */}
+        {/* Always Active Pulsing Rings */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isHovered ? 1 : 0 }}
-          className='absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-white text-xs font-bold bg-black/70 px-3 py-1 rounded-full whitespace-nowrap border border-white/20 backdrop-blur-sm'
-        >
-          🎵 Click for beats!
-        </motion.div>
+          className='absolute inset-0 rounded-full border-2 border-white/60'
+          animate={{
+            scale: [0.8, 2, 3],
+            opacity: [0, 0.8, 0],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeOut",
+          }}
+        />
 
-        {/* Pulse indicator when playing */}
-        {isPlaying && (
+        <motion.div
+          className='absolute inset-0 rounded-full border border-cyan-400/40'
+          animate={{
+            scale: [1, 2.5, 4],
+            opacity: [0, 0.6, 0],
+          }}
+          transition={{
+            duration: 2.5,
+            delay: 0.4,
+            repeat: Infinity,
+            ease: "easeOut",
+          }}
+        />
+
+        {/* Always Active Spinning Particles */}
+        {[...Array(6)].map((_, i) => (
           <motion.div
+            key={`particle-${i}`}
+            className='absolute w-2 h-2 rounded-full'
+            style={{
+              background: ["#ff3b8a", "#6af1ff", "#ffd86a"][i % 3],
+              boxShadow: `0 0 8px ${["#ff3b8a", "#6af1ff", "#ffd86a"][i % 3]}`,
+              left: "50%",
+              top: "50%",
+            }}
             animate={{
-              scale: [1, 1.5, 1],
-              opacity: [1, 0.5, 1],
+              x: Math.cos((i * 60 * Math.PI) / 180) * 30,
+              y: Math.sin((i * 60 * Math.PI) / 180) * 30,
+              scale: [0.8, 1.2, 0.8],
+              rotate: [0, 360],
             }}
             transition={{
-              duration: 0.4,
+              duration: 3,
+              delay: i * 0.2,
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className='absolute inset-0 rounded-full border-2 border-white/50'
           />
-        )}
-      </div>
+        ))}
+
+        {/* Pulsing Center Core */}
+        <motion.div
+          className='absolute top-1/2 left-1/2 w-4 h-4 rounded-full transform -translate-x-1/2 -translate-y-1/2'
+          animate={{
+            scale: [1, 1.6, 1],
+            opacity: [0.8, 1, 0.8],
+            boxShadow: [
+              "0 0 20px #ff3b8a",
+              "0 0 30px #6af1ff",
+              "0 0 20px #ffd86a",
+              "0 0 25px #ff3b8a",
+            ],
+          }}
+          transition={{
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          style={{
+            background:
+              "radial-gradient(circle, rgba(255,255,255,1), rgba(255,255,255,0.3))",
+          }}
+        />
+      </motion.div>
+
+      {/* Always Active Glow Effect */}
+      <motion.div
+        className='absolute -inset-8 rounded-full'
+        animate={{
+          scale: [1, 1.4, 1.2],
+          opacity: [0.6, 1, 0.8],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        style={{
+          background:
+            "radial-gradient(circle, #ff3b8a80, #6af1ff60, #ffd86a40, transparent)",
+          filter: "blur(15px)",
+        }}
+      />
+
+      {/* Click Burst Effect */}
+      {isClicked && (
+        <div className='absolute inset-0 pointer-events-none'>
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={`${clickCount}-${i}`}
+              className='absolute w-3 h-3'
+              style={{
+                left: "50%",
+                top: "50%",
+                background: ["#ff3b8a", "#6af1ff", "#ffd86a"][i % 3],
+                borderRadius: i % 2 === 0 ? "50%" : "0%",
+                boxShadow: `0 0 12px ${
+                  ["#ff3b8a", "#6af1ff", "#ffd86a"][i % 3]
+                }`,
+              }}
+              initial={{
+                scale: 0,
+                x: 0,
+                y: 0,
+                opacity: 1,
+                rotate: 0,
+              }}
+              animate={{
+                scale: [0, 2, 0],
+                x: Math.cos((i * 30 * Math.PI) / 180) * 100,
+                y: Math.sin((i * 30 * Math.PI) / 180) * 100,
+                opacity: [1, 0.8, 0],
+                rotate: 720,
+              }}
+              transition={{
+                duration: 1.5,
+                delay: i * 0.05,
+                ease: "easeOut",
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Always Active Energy Trails */}
+      {[...Array(4)].map((_, i) => (
+        <motion.div
+          key={`trail-${i}`}
+          className='absolute'
+          style={{
+            width: "2px",
+            height: "50px",
+            background: `linear-gradient(to top, transparent, ${
+              ["#ff3b8a", "#6af1ff", "#ffd86a", "#9d4edd"][i]
+            }, transparent)`,
+            left: "50%",
+            top: "50%",
+            transformOrigin: "bottom center",
+            transform: `translateX(-50%) translateY(-25px) rotate(${
+              i * 90
+            }deg)`,
+          }}
+          animate={{
+            opacity: [0.3, 1, 0.3],
+            scaleY: [0.5, 1.2, 0.5],
+            rotateZ: [0, 180, 360],
+          }}
+          transition={{
+            duration: 2.5,
+            delay: i * 0.3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
     </motion.div>
   );
 };
