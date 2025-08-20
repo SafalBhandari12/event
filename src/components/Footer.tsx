@@ -225,19 +225,6 @@ const Footer = () => {
             © 2024 Flow Party. All rights reserved. Made with ❤️ for the music
             community.
           </p>
-          <div className='flex items-center space-x-6'>
-            <span className='text-white/40 font-body text-xs'>Powered by</span>
-            <div className='flex items-center space-x-2'>
-              <div className='w-6 h-6 bg-gradient-to-r from-[var(--accent-pink)] to-[var(--accent-cyan)] rounded'>
-                <div className='w-full h-full bg-black/20 rounded flex items-center justify-center'>
-                  <span className='text-white text-xs font-bold'>F</span>
-                </div>
-              </div>
-              <span className='text-white/60 font-body text-xs'>
-                Flow Events
-              </span>
-            </div>
-          </div>
         </motion.div>
       </div>
     </footer>
