@@ -36,7 +36,7 @@ const About = () => {
           >
             Step into a world where African rhythms meet Indian spirituality,
             where ancient traditions dance with modern beats. Afro Vibes
-            Festival 2025 isn't just an event—it's a cultural revolution
+            Festival 2025 isn&apos;t just an event—it&apos;s a cultural revolution
             happening in the sacred valleys of Rishikesh. Join thousands of
             souls from across the globe as we celebrate the beautiful chaos of
             diversity through music, art, and pure human connection.
@@ -73,8 +73,8 @@ const About = () => {
                 Bridge Builder Mission
               </h3>
               <p className='font-body text-white/70 leading-relaxed'>
-                Breaking down barriers one beat at a time. We're not just
-                hosting a festival—we're fostering a global family through the
+                Breaking down barriers one beat at a time. We&apos;re not just
+                hosting a festival—we&apos;re fostering a global family through the
                 universal language of music.
               </p>
             </div>
