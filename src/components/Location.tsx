@@ -28,7 +28,8 @@ const Location = () => {
             Event <span className='neon-text'>Location</span>
           </h2>
           <p className='font-body text-lg md:text-xl text-white/80 max-w-2xl mx-auto'>
-            Join us at the iconic India Gate for an unforgettable night with Kjnrwhite under the stars
+            Join us in the spiritual and scenic beauty of Rishikesh for the Afro
+            Vibes Festival 2025
           </p>
         </motion.div>
 
@@ -42,7 +43,7 @@ const Location = () => {
           >
             <div className='glass rounded-2xl p-8'>
               <h3 className='font-heading font-bold text-2xl text-white mb-6'>
-                India Gate, New Delhi
+                Rishikesh, Uttarakhand, India
               </h3>
 
               <div className='space-y-4'>
@@ -63,9 +64,9 @@ const Location = () => {
                       Address
                     </h4>
                     <p className='text-white/70 font-body'>
-                      Rajpath, India Gate
+                      Festival Grounds, Rishikesh
                       <br />
-                      New Delhi, Delhi 110001
+                      Uttarakhand 249137
                       <br />
                       India
                     </p>
@@ -86,14 +87,14 @@ const Location = () => {
                   </div>
                   <div>
                     <h4 className='font-body font-semibold text-white mb-1'>
-                      Event Time
+                      Event Dates
                     </h4>
                     <p className='text-white/70 font-body'>
-                      Saturday, August 30th
+                      October 3rd & 4th, 2025
                       <br />
-                      Doors open: 6:00 PM
+                      Day 1: 4:00 PM onwards
                       <br />
-                      Kjnrwhite Live: 8:00 PM
+                      Day 2: 3:00 PM onwards
                     </p>
                   </div>
                 </div>
@@ -115,9 +116,9 @@ const Location = () => {
                       Capacity
                     </h4>
                     <p className='text-white/70 font-body'>
-                      10,000 attendees
+                      5,000+ attendees
                       <br />
-                      Open-air venue
+                      Riverside venue
                       <br />
                       Historic monument backdrop
                     </p>
@@ -164,7 +165,7 @@ const Location = () => {
                     </svg>
                   </div>
                   <span className='text-white/80 font-body text-sm'>
-                    Delhi Metro: Central Secretariat
+                    Nearest Railway: Rishikesh Station
                   </span>
                 </div>
                 <div className='flex items-center space-x-3'>
@@ -179,7 +180,7 @@ const Location = () => {
                     </svg>
                   </div>
                   <span className='text-white/80 font-body text-sm'>
-                    Ride Share Drop-off
+                    Cab & Auto Services
                   </span>
                 </div>
                 <div className='flex items-center space-x-3'>
@@ -195,7 +196,7 @@ const Location = () => {
                     </svg>
                   </div>
                   <span className='text-white/80 font-body text-sm'>
-                    Shuttle Service
+                    Festival Shuttle Service
                   </span>
                 </div>
               </div>
@@ -211,15 +212,15 @@ const Location = () => {
           >
             <div className='glass rounded-2xl p-4 h-96 relative overflow-hidden'>
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.9747329560467!2d77.22709831455062!3d28.612912982421052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd371b7e2b8b%3A0xb5e6e4d2e1c3b2a1!2sIndia%20Gate!5e0!3m2!1sen!2sin!4v1703097600000!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0, borderRadius: '12px' }}
+                src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462166.23842808396!2d78.18803430!3d30.08765292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39093e67cf93f111%3A0xcc78804a6f941bfe!2sRishikesh%2C%20Uttarakhand!5e0!3m2!1sen!2sin!4v1692693600000!5m2!1sen!2sin'
+                width='100%'
+                height='100%'
+                style={{ border: 0, borderRadius: "12px" }}
                 allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="rounded-xl"
-                title="India Gate Location - Kjnrwhite Concert Venue"
+                loading='lazy'
+                referrerPolicy='no-referrer-when-downgrade'
+                className='rounded-xl'
+                title='Rishikesh, Uttarakhand - Afro Vibes Festival 2025 Venue'
               />
             </div>
           </motion.div>

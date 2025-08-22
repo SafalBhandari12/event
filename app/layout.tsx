@@ -24,15 +24,21 @@ const fredoka = Fredoka({
 });
 
 export const metadata: Metadata = {
-  title: "IN or OUT | Neon-filled Night of Beats & Art",
+  title: "Afro Vibes Festival 2025 | Where Cultures Collide",
   description:
-    "Join us for an electrifying night of music, art, and waves at Riverside Amphitheater. August 30th - Experience the flow.",
+    "Join us for a groundbreaking celebration of culture, unity, and entertainment in Rishikesh. Oct 3-4, 2025 - Experience the rhythm of diversity.",
   keywords:
-    "IN or OUT, Kjnrwhite, electronic music, riverside amphitheater, neon party, EDM event",
+    "Afro Vibes Festival, Rishikesh, Afrobeat, cultural festival, diversity, music festival, unity celebration, Uttarakhand",
   openGraph: {
-    title: "IN or OUT",
-    description: "A neon-filled night of beats, art, and waves",
+    title: "Afro Vibes Festival 2025",
+    description:
+      "A Groundbreaking Celebration of Culture, Unity, and Entertainment",
     type: "website",
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
 };
 

@@ -15,32 +15,32 @@ interface Artist {
 
 const artists: Artist[] = [
   {
-    name: "Kjnrwhite",
-    genre: "Progressive House",
-    time: "10:00 PM - 11:30 PM",
-    bio: "Master of progressive soundscapes with over 15 years of experience in underground scenes.",
-    image: "/assets/artist-placeholder.svg",
+    name: "Ricky the Dj",
+    genre: "Afrobeat / Hip-Hop Fusion",
+    time: "Day 1 - 8:00 PM",
+    bio: "Dynamic DJ bringing authentic Afrobeat vibes mixed with contemporary sounds, known for energetic performances.",
+    image: "/djs/ricky.png",
   },
   {
-    name: "Luna Verde",
-    genre: "Melodic Techno",
-    time: "8:30 PM - 10:00 PM",
-    bio: "Rising star known for ethereal melodies and hypnotic rhythms that transport listeners.",
-    image: "/assets/artist-placeholder.svg",
+    name: "Dj leslie Pounds",
+    genre: "Afrobeats / Amapiano",
+    time: "Day 1 - 10:00 PM",
+    bio: "Master of Afrobeats and Amapiano rhythms, creating infectious dance floors with signature pound beats.",
+    image: "/djs/leslie.png",
   },
   {
-    name: "MK & Co",
-    genre: "Deep House",
-    time: "11:30 PM - 1:00 AM",
-    bio: "Dynamic duo creating deep, soulful house music with modern electronic elements.",
-    image: "/assets/artist-placeholder.svg",
+    name: "Dj ILY",
+    genre: "Afro House / Electronic",
+    time: "Day 2 - 8:00 PM",
+    bio: "Innovative DJ blending traditional African sounds with modern electronic elements for unique musical experiences.",
+    image: "/djs/lily.png",
   },
   {
-    name: "Echo Beats",
-    genre: "Ambient Electronica",
-    time: "7:00 PM - 8:30 PM",
-    bio: "Experimental artist blending organic sounds with digital manipulation for unique experiences.",
-    image: "/assets/artist-placeholder.svg",
+    name: "Dj Hustle kid",
+    genre: "Hip-Hop / Afrobeat",
+    time: "Day 2 - 10:30 PM",
+    bio: "Young talent with incredible hustle, mixing urban beats with African rhythms to create groundbreaking soundscapes.",
+    image: "/djs/hustle.png",
   },
 ];
 
@@ -131,13 +131,13 @@ const ArtistCard = ({ artist, index }: { artist: Artist; index: number }) => {
         </div>
 
         <div className='p-4 sm:p-6'>
-          <h3 className='font-heading font-bold text-xl sm:text-2xl text-white mb-2'>
+          <h3 className='font-heading font-bold text-lg sm:text-xl text-white mb-3 leading-tight'>
             {artist.name}
           </h3>
-          <p className='text-[var(--accent-cyan)] font-body font-semibold mb-2 text-sm sm:text-base'>
+          <p className='text-[var(--accent-cyan)] font-body font-semibold mb-3 text-sm sm:text-base leading-relaxed'>
             {artist.genre}
           </p>
-          <p className='text-[var(--muted)] font-body text-xs sm:text-sm mb-4'>
+          <p className='text-[var(--muted)] font-body text-xs sm:text-sm'>
             {artist.time}
           </p>
         </div>
@@ -170,8 +170,8 @@ const Lineup = () => {
             Artist <span className='neon-text'>Lineup</span>
           </h2>
           <p className='font-body text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto'>
-            Experience world-class artists bringing their unique sounds to life
-            with Kjnrwhite
+            Celebrating diversity through music - World-class artists bringing
+            Afrobeats, House, and Global Fusion to Rishikesh
           </p>
         </motion.div>
 

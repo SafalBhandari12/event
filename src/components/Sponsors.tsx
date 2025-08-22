@@ -3,10 +3,30 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
+
+const sponsors = [
+  { name: "Africa India", image: "/patners/afica_india.png" },
+  { name: "Afri", image: "/patners/afri.png" },
+  { name: "Bliss", image: "/patners/bliss.png" },
+  { name: "DJ Leslie", image: "/patners/djleslie.png" },
+  { name: "Gaga", image: "/patners/gaga.png" },
+  { name: "In Or Out", image: "/patners/inOrOut.png" },
+  { name: "IWE", image: "/patners/iwe.png" },
+  { name: "Reckish", image: "/patners/reckish.png" },
+  { name: "Ricky", image: "/patners/ricky.png" },
+  { name: "Taari", image: "/patners/taari.png" },
+  { name: "Yum", image: "/patners/yum.png" },
+];
 
 const Sponsors = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+
+  // Create separate arrays to avoid mutation issues
+  const duplicatedSponsors = [...sponsors, ...sponsors];
+  const reversedSponsors = [...sponsors].reverse();
+  const duplicatedReversedSponsors = [...reversedSponsors, ...reversedSponsors];
 
   return (
     <section
@@ -26,90 +46,123 @@ const Sponsors = () => {
           className='text-center mb-16'
         >
           <h2 className='font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-6 text-white'>
-            Our <span className='neon-text'>Sponsors</span>
+            Our <span className='neon-text'>Partners</span>
           </h2>
           <p className='font-body text-lg md:text-xl text-white/80 max-w-3xl mx-auto'>
-            Proudly supported by amazing brands that believe in the power of music and community
+            Proudly supported by amazing brands and organizations that believe
+            in cultural unity and diversity
           </p>
         </motion.div>
 
-        {/* Featured Sponsors */}
+        {/* Infinite Scrolling Sponsors */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className='mb-16'
+          className='relative overflow-hidden'
         >
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-            {/* Sponsor 1 - BeatSync */}
+          <div className='flex items-center'>
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className='glass rounded-2xl p-8 text-center hover:bg-white/10 transition-all'
+              className='flex items-center space-x-12 whitespace-nowrap'
+              animate={{
+                x: [0, -1584], // Adjusted for smoother animation (11 sponsors * 144px)
+              }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 30,
+                  ease: "linear",
+                },
+              }}
             >
-              <div className='w-20 h-20 bg-gradient-to-r from-[var(--accent-pink)] to-[var(--accent-purple)] rounded-full flex items-center justify-center mx-auto mb-6'>
-                <span className='text-black font-bold text-2xl'>B</span>
-              </div>
-              <h3 className='font-heading font-bold text-2xl text-white mb-3'>BeatSync</h3>
-              <p className='text-white/70 font-body'>Audio Technology Partner</p>
-            </motion.div>
-
-            {/* Sponsor 2 - NeonFlow */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className='glass rounded-2xl p-8 text-center hover:bg-white/10 transition-all'
-            >
-              <div className='w-20 h-20 bg-gradient-to-r from-[var(--accent-cyan)] to-[var(--accent-blue)] rounded-full flex items-center justify-center mx-auto mb-6'>
-                <span className='text-black font-bold text-2xl'>N</span>
-              </div>
-              <h3 className='font-heading font-bold text-2xl text-white mb-3'>NeonFlow</h3>
-              <p className='text-white/70 font-body'>Lighting & Visual Effects</p>
-            </motion.div>
-
-            {/* Sponsor 3 - SoundWave */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className='glass rounded-2xl p-8 text-center hover:bg-white/10 transition-all'
-            >
-              <div className='w-20 h-20 bg-gradient-to-r from-[var(--accent-yellow)] to-[var(--accent-orange)] rounded-full flex items-center justify-center mx-auto mb-6'>
-                <span className='text-black font-bold text-2xl'>S</span>
-              </div>
-              <h3 className='font-heading font-bold text-2xl text-white mb-3'>SoundWave</h3>
-              <p className='text-white/70 font-body'>Official Sound Partner</p>
+              {duplicatedSponsors.map((sponsor, index) => (
+                <motion.div
+                  key={`${sponsor.name}-${index}`}
+                  className='flex-shrink-0 w-32 h-20 relative group'
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className='glass rounded-xl p-4 w-full h-full flex items-center justify-center bg-white/5 hover:bg-white/10 transition-all group-hover:shadow-lg'>
+                    <Image
+                      src={sponsor.image}
+                      alt={sponsor.name}
+                      width={80}
+                      height={40}
+                      className='object-contain filter brightness-90 group-hover:brightness-110 transition-all'
+                    />
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
           </div>
         </motion.div>
 
-        {/* Become Sponsor Section */}
+        {/* Second Row - Reverse Direction */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className='relative overflow-hidden mt-8'
+        >
+          <div className='flex items-center'>
+            <motion.div
+              className='flex items-center space-x-12 whitespace-nowrap'
+              animate={{
+                x: [-1584, 0], // Reverse direction with matching distance
+              }}
+              transition={{
+                x: {
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 35,
+                  ease: "linear",
+                },
+              }}
+            >
+              {duplicatedReversedSponsors.map((sponsor, index) => (
+                <motion.div
+                  key={`reverse-${sponsor.name}-${index}`}
+                  className='flex-shrink-0 w-32 h-20 relative group'
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className='glass rounded-xl p-4 w-full h-full flex items-center justify-center bg-white/5 hover:bg-white/10 transition-all group-hover:shadow-lg'>
+                    <Image
+                      src={sponsor.image}
+                      alt={sponsor.name}
+                      width={80}
+                      height={40}
+                      className='object-contain filter brightness-90 group-hover:brightness-110 transition-all'
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Become Partner Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className='text-center'
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className='text-center mt-16'
         >
-          <div className='glass rounded-2xl p-8'>
+          <div className='glass rounded-2xl p-8 max-w-2xl mx-auto'>
             <h3 className='font-heading font-bold text-2xl text-white mb-4'>
-              Become a Sponsor
+              Become Our Partner
             </h3>
-            <p className='text-white/70 font-body mb-6 max-w-2xl mx-auto'>
-              Join our community of forward-thinking brands and reach thousands
-              of engaged attendees. Partner with us to create unforgettable
-              experiences.
+            <p className='text-white/70 font-body mb-6'>
+              Join us in celebrating cultural diversity and supporting emerging
+              artists. Partner with Afro Vibes Festival 2025.
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className='px-8 py-3 bg-gradient-to-r from-[var(--accent-pink)] to-[var(--accent-yellow)] text-black font-body font-bold rounded-full hover:shadow-lg transition-shadow'
+              className='px-8 py-3 bg-gradient-to-r from-[var(--accent-pink)] to-[var(--accent-cyan)] text-black font-body font-semibold rounded-full hover:shadow-xl transition-shadow'
             >
-              Partnership Opportunities
+              Partner With Us
             </motion.button>
           </div>
         </motion.div>

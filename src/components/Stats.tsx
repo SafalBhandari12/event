@@ -100,10 +100,10 @@ const Stats = () => {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   const stats = [
-    { endValue: 2023, label: "Events Hosted", delay: 200 },
-    { endValue: 50, label: "Attendees", suffix: "K+", delay: 400 },
-    { endValue: 100, label: "Artists", suffix: "+", delay: 600 },
-    { endValue: 48, label: "Hours of Music", delay: 800 },
+    { endValue: 2025, label: "Festival Year", delay: 200 },
+    { endValue: 5, label: "Expected Attendees", suffix: "K+", delay: 400 },
+    { endValue: 15, label: "International Artists", suffix: "+", delay: 600 },
+    { endValue: 2, label: "Days of Celebration", delay: 800 },
   ];
 
   return (
@@ -121,10 +121,11 @@ const Stats = () => {
           className='text-center mb-12 sm:mb-16'
         >
           <h2 className='font-heading font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl mb-6 text-white'>
-            IN or OUT <span className='neon-text'>By Numbers</span>
+            Afro Vibes <span className='neon-text'>By Numbers</span>
           </h2>
           <p className='font-body text-base sm:text-lg md:text-xl text-white/80 max-w-2xl mx-auto'>
-            Experience the magnitude of our musical journey with Kjnrwhite
+            Experience the magnitude of our groundbreaking celebration of
+            culture, unity, and entertainment
           </p>
         </motion.div>
 

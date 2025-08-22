@@ -67,8 +67,8 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.5 }}
           className='font-heading font-black text-6xl md:text-8xl lg:text-9xl mb-6 leading-none'
         >
-          <span className='block text-white'>IN or OUT</span>
-          <span className='block neon-text tracking-wider'>Concert</span>
+          <span className='block text-white'>Afro Vibes</span>
+          <span className='block neon-text tracking-wider'>Festival 2025</span>
         </motion.h1>
 
         <motion.p
@@ -77,7 +77,7 @@ const Hero = () => {
           transition={{ duration: 1, delay: 1 }}
           className='font-body text-xl md:text-2xl text-white/80 mb-8 max-w-2xl mx-auto tracking-wide'
         >
-          A neon-filled night of beats, art, and waves
+          A Groundbreaking Celebration of Culture, Unity, and Entertainment
         </motion.p>
 
         <motion.div
@@ -86,7 +86,7 @@ const Hero = () => {
           transition={{ duration: 1, delay: 1.2 }}
           className='text-[var(--muted)] text-lg md:text-xl mb-12 font-body'
         >
-          Riverside Amphitheater • Sat, Aug 30
+          03 & 04 Oct 2025 | Rishikesh, Uttarakhand, India
         </motion.div>
 
         <motion.div

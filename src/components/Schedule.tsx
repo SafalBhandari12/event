@@ -9,59 +9,111 @@ interface ScheduleItem {
   title: string;
   description: string;
   type: "performance" | "break" | "special";
+  day: number;
 }
 
 const scheduleData: ScheduleItem[] = [
+  // Day 1 - October 3rd, 2025
   {
-    time: "6:00 PM",
-    title: "Doors Open",
-    description: "Welcome drinks and ambient music as guests arrive",
+    time: "4:00 PM",
+    title: "Gates Open",
+    description:
+      "Welcome to Afro Vibes Festival 2025! Registration and welcome drinks",
     type: "special",
+    day: 1,
   },
   {
-    time: "7:00 PM",
-    title: "Echo Beats",
-    description: "Opening set with ambient electronica to set the mood",
-    type: "performance",
+    time: "5:00 PM",
+    title: "Cultural Opening Ceremony",
+    description:
+      "Traditional performances celebrating African heritage and culture",
+    type: "special",
+    day: 1,
   },
   {
-    time: "8:30 PM",
-    title: "Luna Verde",
-    description: "Melodic techno journey through ethereal soundscapes",
+    time: "6:30 PM",
+    title: "Emerging Artists Showcase",
+    description: "Platform for upcoming talents to shine on the main stage",
     type: "performance",
+    day: 1,
+  },
+  {
+    time: "8:00 PM",
+    title: "Afrobeat Legends",
+    description:
+      "Classic Afrobeat rhythms and contemporary fusion performances",
+    type: "performance",
+    day: 1,
   },
   {
     time: "10:00 PM",
-    title: "DJ Zen",
-    description: "Progressive house masterclass with hypnotic rhythms",
+    title: "Headliner Performance",
+    description: "Main stage spectacular featuring international artists",
     type: "performance",
+    day: 1,
   },
   {
-    time: "11:30 PM",
-    title: "MK & Co",
-    description: "Deep house vibes with soulful electronic elements",
-    type: "performance",
-  },
-  {
-    time: "1:00 AM",
-    title: "Varyxx",
-    description: "Bass-heavy finale with future sounds and heavy drops",
-    type: "performance",
-  },
-  {
-    time: "2:30 AM",
-    title: "After Party",
-    description: "Ambient chill-out session and networking",
+    time: "12:00 AM",
+    title: "Night Vibes Session",
+    description: "Late night chill-out with ambient African sounds",
     type: "special",
+    day: 1,
+  },
+  // Day 2 - October 4th, 2025
+  {
+    time: "3:00 PM",
+    title: "Day 2 Opening",
+    description:
+      "Afternoon opening with acoustic sessions and artist interactions",
+    type: "special",
+    day: 2,
+  },
+  {
+    time: "4:30 PM",
+    title: "Cultural Fusion Workshop",
+    description: "Interactive sessions blending different musical traditions",
+    type: "special",
+    day: 2,
+  },
+  {
+    time: "6:00 PM",
+    title: "Regional Artists Spotlight",
+    description: "Celebrating local and regional talent from across India",
+    type: "performance",
+    day: 2,
+  },
+  {
+    time: "8:00 PM",
+    title: "International Collaboration",
+    description:
+      "Cross-cultural musical collaborations and fusion performances",
+    type: "performance",
+    day: 2,
+  },
+  {
+    time: "10:30 PM",
+    title: "Grand Finale",
+    description: "Festival finale with all artists coming together",
+    type: "performance",
+    day: 2,
+  },
+  {
+    time: "12:30 AM",
+    title: "Closing Celebration",
+    description: "Community gathering and farewell ceremony",
+    type: "special",
+    day: 2,
   },
 ];
 
 const ScheduleItem = ({
   item,
   index,
+  isLast,
 }: {
   item: ScheduleItem;
   index: number;
+  isLast: boolean;
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -107,7 +159,7 @@ const ScheduleItem = ({
       className='relative mb-6'
     >
       {/* Timeline Line */}
-      {index < scheduleData.length - 1 && (
+      {!isLast && (
         <div className='absolute left-6 top-16 w-0.5 h-16 bg-gradient-to-b from-white/20 to-transparent' />
       )}
 
@@ -258,6 +310,11 @@ const ScheduleItem = ({
 const Schedule = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
+  const [selectedDay, setSelectedDay] = useState(1);
+
+  const filteredSchedule = scheduleData.filter(
+    (item) => item.day === selectedDay
+  );
 
   return (
     <section
@@ -276,20 +333,51 @@ const Schedule = () => {
           className='text-center mb-16'
         >
           <h2 className='font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-6 text-white'>
-            Event <span className='neon-text'>Schedule</span>
+            Festival <span className='neon-text'>Schedule</span>
           </h2>
-          <p className='font-body text-lg md:text-xl text-white/80 max-w-2xl mx-auto'>
-            Your complete guide to the night&apos;s journey through sound and
-            experience
+          <p className='font-body text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-8'>
+            Two days of groundbreaking celebration featuring diverse artists and
+            cultural experiences
           </p>
+
+          {/* Day Selector */}
+          <div className='flex justify-center mb-12'>
+            <div className='glass rounded-xl p-2 flex space-x-2'>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedDay(1)}
+                className={`px-6 py-3 rounded-lg font-body font-semibold transition-all duration-300 ${
+                  selectedDay === 1
+                    ? "bg-[var(--accent-pink)] text-black"
+                    : "text-white hover:bg-white/10"
+                }`}
+              >
+                Day 1 - Oct 3rd
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedDay(2)}
+                className={`px-6 py-3 rounded-lg font-body font-semibold transition-all duration-300 ${
+                  selectedDay === 2
+                    ? "bg-[var(--accent-cyan)] text-black"
+                    : "text-white hover:bg-white/10"
+                }`}
+              >
+                Day 2 - Oct 4th
+              </motion.button>
+            </div>
+          </div>
         </motion.div>
 
         <div className='space-y-4'>
-          {scheduleData.map((item, index) => (
+          {filteredSchedule.map((item, index) => (
             <ScheduleItem
-              key={`${item.time}-${item.title}`}
+              key={`${item.day}-${item.time}-${item.title}`}
               item={item}
               index={index}
+              isLast={index === filteredSchedule.length - 1}
             />
           ))}
         </div>
